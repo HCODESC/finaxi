@@ -1,0 +1,54 @@
+<header class="sticky top-0 z-30 border-b border-white/10 bg-[#05060a]/70 backdrop-blur-xl">
+  <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
+    <div class="flex items-center gap-3">
+      <div
+        class="flex h-12 w-12 items-center justify-center"
+      >
+        <img [src]="finaxilogo" alt="finaxi logo" class="object-contain" />
+      </div>
+      <div class="leading-none">
+        <div class="text-sm font-semibold">finaxi</div>
+        <div class="text-[11px] text-white/50">Budgeting + transactions</div>
+      </div>
+    </div>
+
+    <nav class="hidden items-center gap-2 md:flex">
+      @for (n of nav; track n.id) {
+      <button
+        class="rounded-xl px-3 py-2 text-sm text-white/70 hover:bg-white/[0.04] hover:text-white cursor-pointer"
+      >
+        {{ n.label }}
+      </button>
+      }
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <button
+        class="hidden rounded-2xl border border-white/12 bg-white/[0.03] px-4 py-2 text-sm font-semibold text-white/80 hover:bg-white/[0.05] md:inline-flex hover:cursor-pointer"
+      >
+        Sign in
+      </button>
+
+      <button
+        class="inline-flex items-center gap-2 rounded-2xl bg-white px-4 py-2 text-sm font-semibold text-black hover:bg-white/90 hover:cursor-pointer"
+      >
+        Launch demo
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="h-4 w-4"
+        >
+          <path d="M5 12h14" />
+          <path d="m12 5 7 7-7 7" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
