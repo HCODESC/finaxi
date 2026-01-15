@@ -24,5 +24,40 @@
         </button>
       </div>
     </div>
+    <!-- right -->
+    <div class="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-6">
+      <div class="relative">
+        <div class="flex items-center justify-between">
+          <div>
+            <div class="text-sm font-semibold text-white">This month</div>
+            <div class="mt-1 text-xs text-white/55">Budget Snapshot</div>
+          </div>
+          <app-pill>
+            <span-lucide [img]="TrendingUp" class="mr-1.5 h-3.5 w-3.5" />
+            Healthy</app-pill
+          >
+        </div>
+        <div class="mt-6 space-y-4">
+          @for(row of items(); track row.name){
+          <div>
+            <div class="flex items-center justify-between text-sm font-semibold text-white">
+              <span class="text-white/75">{{ row.name }}</span>
+              <span class="text-white/50">{{ row.used }}</span>
+            </div>
+            <div class="mt-2 h-2 rounded-full bg-white/10">
+              <div class="h-2 rounded-full bg-white/50" [style.width.%]="row.used"></div>
+            </div>
+          </div>
+          }
+          <div class="mt-6 grid grid-cols-2 gap-3">
+            <div class="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+              <div class="">Spent</div>
+              <div>$1,200</div>
+              <div>Accross 22 transactions</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
