@@ -1,0 +1,87 @@
+<!-- Features -->
+<section id="features" class="mx-auto max-w-6xl px-4 py-12 md:py-16">
+  <div>
+    <div class="flex items-end justify-between gap-6">
+      <div>
+        <div class="text-xs font-semibold uppercase tracking-wider text-white/50">
+          Core features
+        </div>
+        <h2 class="mt-2 text-2xl font-semibold tracking-tight md:text-3xl">
+          Built around what you’ll actually implement
+        </h2>
+        <p class="mt-2 max-w-2xl text-sm leading-relaxed text-white/60">
+          A focused MVP landing that matches a real backend: budgets, categories, transactions, and
+          an auth-gated dashboard.
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-8 grid gap-4 md:grid-cols-3">
+      @for (f of features; track f.title) {
+      <div class="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
+        <lucide-angular [img]="f.icon" class="h-6 w-6 text-white/75"></lucide-angular>
+        <div class="mt-4 text-sm font-semibold text-white">{{ f.title }}</div>
+        <div class="mt-2 text-sm leading-relaxed text-white/60">{{ f.description }}</div>
+      </div>
+      }
+    </div>
+
+    <div class="mt-8 grid gap-4 md:grid-cols-3">
+      <div
+        class="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-6 md:col-span-2"
+      >
+        <div class="relative">
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="text-sm font-semibold">Clean reporting</div>
+              <div class="mt-1 text-xs text-white/55">
+                Totals, breakdowns, and trends you can ship.
+              </div>
+            </div>
+            <app-pill>
+              <lucide-angular [img]="ShieldCheck" class="mr-1.5 h-3.5 w-3.5"></lucide-angular>
+              predictable
+            </app-pill>
+          </div>
+
+          <div class="mt-6 grid gap-3 sm:grid-cols-3">
+            @for (x of ["By category", "By date", "By budget"]; track x) {
+            <div class="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+              <div class="text-xs text-white/55">Report</div>
+              <div class="mt-1 text-sm font-semibold text-white">{{ x }}</div>
+              <div class="mt-1 text-xs text-white/45">Filter → export → done.</div>
+            </div>
+            }
+          </div>
+
+          <div class="mt-6 text-sm text-white/60">
+            Keep it honest: no “connect 12 banks” fantasy. This is a portfolio project, not a
+            compliance nightmare.
+          </div>
+        </div>
+      </div>
+
+      <div class="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-6">
+        <div class="relative">
+          <div class="text-sm font-semibold">Security vibes</div>
+          <p class="mt-2 text-sm leading-relaxed text-white/60">
+            Use standard auth patterns, protect routes, validate inputs, and keep secrets off the
+            client.
+          </p>
+
+          <div class="mt-5 space-y-3">
+            @for (x of ["JWT sessions", "Role-ready", "Rate-limit ready"]; track x) {
+            <div
+              class="flex items-center gap-2 rounded-2xl border border-white/10 bg-white/[0.03] px-3 py-2 text-sm text-white/70"
+            >
+              <lucide-angular [img]="Check" class="h-4 w-4 text-white/70"></lucide-angular>
+              {{ x }}
+            </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- How it works -->

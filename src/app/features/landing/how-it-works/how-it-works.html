@@ -1,0 +1,53 @@
+<section id="how" class="mx-auto max-w-6xl px-4 py-12 md:py-16">
+  <div class="relative overflow-hidden rounded-3xl border border-white/10 bg-white/3 p-6 md:p-8">
+    <div class="relative">
+      <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+        <div>
+          <div class="text-xs font-semibold uppercase tracking-wider text-white/50">
+            How it works
+          </div>
+          <h2 class="mt-2 text-2xl font-semibold tracking-tight md:text-3xl">
+            A simple loop that ships
+          </h2>
+          <p class="mt-2 max-w-2xl text-sm leading-relaxed text-white/60">
+            The flow stays tight: create budgets, log transactions, review summaries. The app earns
+            trust by being boring—in a good way.
+          </p>
+        </div>
+        <div class="flex gap-2">
+          <app-pill>
+            <lucide-angular [img]="Lock" class="mr-1.5 h-3.5 w-3.5"></lucide-angular> Auth
+          </app-pill>
+          <app-pill>
+            <lucide-angular [img]="ShieldCheck" class="mr-1.5 h-3.5 w-3.5"></lucide-angular>
+            Validation
+          </app-pill>
+        </div>
+      </div>
+
+      <div class="mt-8 grid gap-6 md:grid-cols-3">
+        @for (step of steps; track step.n) {
+        <div>
+          <div class="font-bold text-white/20 text-4xl mb-2">{{ step.n }}</div>
+          <div class="text-sm font-semibold text-white">{{ step.title }}</div>
+          <div class="mt-1 text-sm text-white/60">{{ step.description }}</div>
+        </div>
+        }
+      </div>
+
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+        <button
+          class="inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-black hover:bg-white/90"
+        >
+          Explore dashboard
+          <lucide-angular [img]="ArrowRight" class="h-4 w-4"></lucide-angular>
+        </button>
+        <button
+          class="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/15 bg-white/3 px-5 py-3 text-sm font-semibold text-white/80 hover:bg-white/5"
+        >
+          View API docs
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
