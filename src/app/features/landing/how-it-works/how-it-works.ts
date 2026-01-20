@@ -30,4 +30,23 @@ export class HowItWorks {
       description: 'Log spending and income. Filter and review summaries anytime.',
     },
   ];
+
+  readonly faq = [
+    {
+      q: 'Is Finaxi a real bank?',
+      a: 'Nope. It’s a portfolio project focused on budgeting, category tracking, and transactions—no financial custody.',
+    },
+    {
+      q: 'Will you support bank syncing?',
+      a: 'Not for the MVP. The goal is a clean, well-structured experience around manual entry and API-backed reporting.',
+    },
+    {
+      q: 'What’s the stack?',
+      a: 'An API-first backend with a modern web dashboard. The landing is intentionally minimal and product-like.',
+    },
+    {
+      q: 'Is there a free tier?',
+      a: 'For a portfolio, yes—pricing here is just presentation. You can replace this with a simple “Sign in” CTA.',
+    },
+  ];
 }

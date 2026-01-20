@@ -1,19 +1,21 @@
 import { Component } from '@angular/core';
 
-interface NavItems {
+interface FooterItems {
   label: string;
   id: string;
 }
-
 @Component({
-  selector: 'app-navbar',
+  selector: 'app-footer',
   imports: [],
-  templateUrl: './navbar.html',
-  styleUrl: './navbar.css',
+  templateUrl: './footer.html',
+  styleUrl: './footer.css',
 })
-export class Navbar {
+export class Footer {
+  currentYear = new Date().getFullYear();
+
   finaxilogo = 'finaxi-logo.png';
-  nav: NavItems[] = [
+
+  nav: FooterItems[] = [
     { label: 'Features', id: 'features' },
     { label: 'How it works', id: 'how' },
     { label: 'FAQ', id: 'faq' },

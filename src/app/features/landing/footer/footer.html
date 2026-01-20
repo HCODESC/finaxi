@@ -1,0 +1,30 @@
+<footer class="border-t border-white/10">
+  <div
+    class="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-10 md:flex-row md:items-center md:justify-between"
+  >
+    <div class="flex items-center gap-3">
+      <div class="flex h-12 w-12 items-center justify-center">
+        <img [src]="finaxilogo" alt="finaxi logo" class="object-contain" />
+      </div>
+      <div>
+        <div class="text-sm font-semibold">finaxi</div>
+        <div class="text-xs text-white/50">Portfolio finance tracker</div>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap items-center gap-2 text-sm text-white/55">
+      @for (n of nav; track n.id) {
+      <button
+        (click)="scrollTo(n.id)"
+        class="rounded-xl px-3 py-2 hover:bg-white/[0.04] hover:text-white"
+      >
+        {{ n.label }}
+      </button>
+      }
+    </div>
+
+    <div class="text-xs text-white/45">
+      © {{ currentYear }} Finaxi. Built for learning and shipping.
+    </div>
+  </div>
+</footer>

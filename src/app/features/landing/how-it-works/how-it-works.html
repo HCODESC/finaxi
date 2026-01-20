@@ -51,3 +51,31 @@
     </div>
   </div>
 </section>
+
+<!-- Frequently asked questions -->
+<section id="faq" class="mx-auto max-w-6xl px-4 py-12 md:py-16">
+  <div>
+    <div class="text-xs font-semibold uppercase tracking-wider text-white/50">FAQ</div>
+    <h2 class="mt-2 text-2xl font-semibold tracking-tight md:text-3xl">
+      Questions people will ask
+    </h2>
+    <p class="mt-2 max-w-2xl text-sm leading-relaxed text-white/60">
+      You can replace these with real project notes: tech stack, API endpoints, and what you plan
+      next.
+    </p>
+  </div>
+
+  <div class="mt-8 grid gap-4 md:grid-cols-2">
+    @for (f of faq; track f.q){
+    <details id="{{ f.q }}" class="group rounded-3xl border border-white/10 bg-white/3 p-6">
+      <summary class="cursor-pointer list-none text-sm font-semibold text-white">
+        <div class="flex items-center justify-between gap-4">
+          <span>{{ f.q }}</span>
+          <span class="text-white/40 transition group-open:rotate-45">+</span>
+        </div>
+      </summary>
+      <p class="mt-3 text-sm leading-relaxed text-white/60">{{ f.a }}</p>
+    </details>
+    }
+  </div>
+</section>

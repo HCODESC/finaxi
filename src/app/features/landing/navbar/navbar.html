@@ -1,9 +1,7 @@
 <header class="sticky top-0 z-30 border-b border-white/10 bg-[#05060a]/70 backdrop-blur-xl">
   <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
     <div class="flex items-center gap-3">
-      <div
-        class="flex h-12 w-12 items-center justify-center"
-      >
+      <div class="flex h-12 w-12 items-center justify-center">
         <img [src]="finaxilogo" alt="finaxi logo" class="object-contain" />
       </div>
       <div class="leading-none">
@@ -15,6 +13,7 @@
     <nav class="hidden items-center gap-2 md:flex">
       @for (n of nav; track n.id) {
       <button
+        (click)="scrollTo(n.id)"
         class="rounded-xl px-3 py-2 text-sm text-white/70 hover:bg-white/[0.04] hover:text-white cursor-pointer"
       >
         {{ n.label }}
