@@ -38,16 +38,16 @@
           >
         </div>
         <div class="mt-6 space-y-4">
-          @for(row of budgetCategories(); track row.name){
-          <div>
-            <div class="flex items-center justify-between text-sm font-semibold text-white">
-              <span class="text-white/75">{{ row.name }}</span>
-              <span class="text-white/50">{{ row.used }}</span>
+          @for (row of budgetCategories(); track row.name) {
+            <div>
+              <div class="flex items-center justify-between text-sm font-semibold text-white">
+                <span class="text-white/75">{{ row.name }}</span>
+                <span class="text-white/50">{{ row.used }}</span>
+              </div>
+              <div class="mt-2 h-2 rounded-full bg-white/10">
+                <div class="h-2 rounded-full bg-white/50" [style.width.%]="row.used"></div>
+              </div>
             </div>
-            <div class="mt-2 h-2 rounded-full bg-white/10">
-              <div class="h-2 rounded-full bg-white/50" [style.width.%]="row.used"></div>
-            </div>
-          </div>
           }
           <div class="mt-6 grid grid-cols-2 gap-3">
             <div class="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
@@ -64,11 +64,11 @@
           <div class="mt-6 rounded-2xl border border-white/10 bg-white/[0.03] p-4">
             <div class="text-xs text-white/50">Recent Activity</div>
             <div class="mt-3 space-y-2">
-              @for(transaction of recentTransactions(); track transaction.label){
-              <div class="flex items-center justify-between text-sm">
-                <span class="text-white/70">{{ transaction.label }}</span>
-                <span class="text-white/50">{{ transaction.ammount }}</span>
-              </div>
+              @for (transaction of recentTransactions(); track transaction.label) {
+                <div class="flex items-center justify-between text-sm">
+                  <span class="text-white/70">{{ transaction.label }}</span>
+                  <span class="text-white/50">{{ transaction.ammount }}</span>
+                </div>
               }
             </div>
           </div>
@@ -77,6 +77,3 @@
     </div>
   </div>
 </section>
-
-<!-- Features -->
-<section></section>

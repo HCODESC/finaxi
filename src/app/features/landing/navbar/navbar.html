@@ -12,17 +12,18 @@
 
     <nav class="hidden items-center gap-2 md:flex">
       @for (n of nav; track n.id) {
-      <button
-        (click)="scrollTo(n.id)"
-        class="rounded-xl px-3 py-2 text-sm text-white/70 hover:bg-white/[0.04] hover:text-white cursor-pointer"
-      >
-        {{ n.label }}
-      </button>
+        <button
+          (click)="scrollTo(n.id)"
+          class="rounded-xl px-3 py-2 text-sm text-white/70 hover:bg-white/[0.04] hover:text-white cursor-pointer"
+        >
+          {{ n.label }}
+        </button>
       }
     </nav>
 
     <div class="flex items-center gap-2">
       <button
+        (click)="navigateToAuthPage()"
         class="hidden rounded-2xl border border-white/12 bg-white/[0.03] px-4 py-2 text-sm font-semibold text-white/80 hover:bg-white/[0.05] md:inline-flex hover:cursor-pointer"
       >
         Sign in
