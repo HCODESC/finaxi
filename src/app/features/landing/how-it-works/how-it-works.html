@@ -27,11 +27,11 @@
 
       <div class="mt-8 grid gap-6 md:grid-cols-3">
         @for (step of steps; track step.n) {
-        <div>
-          <div class="font-bold text-white/20 text-4xl mb-2">{{ step.n }}</div>
-          <div class="text-sm font-semibold text-white">{{ step.title }}</div>
-          <div class="mt-1 text-sm text-white/60">{{ step.description }}</div>
-        </div>
+          <div>
+            <div class="font-bold text-white/20 text-4xl mb-2">{{ step.n }}</div>
+            <div class="text-sm font-semibold text-white">{{ step.title }}</div>
+            <div class="mt-1 text-sm text-white/60">{{ step.description }}</div>
+          </div>
         }
       </div>
 
@@ -42,11 +42,13 @@
           Explore dashboard
           <lucide-angular [img]="ArrowRight" class="h-4 w-4"></lucide-angular>
         </button>
-        <button
+        <a
+          href="https://github.com/HCODESC/FinanceTracker"
+          target="_blank"
           class="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/15 bg-white/3 px-5 py-3 text-sm font-semibold text-white/80 hover:bg-white/5"
         >
           View API docs
-        </button>
+        </a>
       </div>
     </div>
   </div>
@@ -66,16 +68,16 @@
   </div>
 
   <div class="mt-8 grid gap-4 md:grid-cols-2">
-    @for (f of faq; track f.q){
-    <details id="{{ f.q }}" class="group rounded-3xl border border-white/10 bg-white/3 p-6">
-      <summary class="cursor-pointer list-none text-sm font-semibold text-white">
-        <div class="flex items-center justify-between gap-4">
-          <span>{{ f.q }}</span>
-          <span class="text-white/40 transition group-open:rotate-45">+</span>
-        </div>
-      </summary>
-      <p class="mt-3 text-sm leading-relaxed text-white/60">{{ f.a }}</p>
-    </details>
+    @for (f of faq; track f.q) {
+      <details id="{{ f.q }}" class="group rounded-3xl border border-white/10 bg-white/3 p-6">
+        <summary class="cursor-pointer list-none text-sm font-semibold text-white">
+          <div class="flex items-center justify-between gap-4">
+            <span>{{ f.q }}</span>
+            <span class="text-white/40 transition group-open:rotate-45">+</span>
+          </div>
+        </summary>
+        <p class="mt-3 text-sm leading-relaxed text-white/60">{{ f.a }}</p>
+      </details>
     }
   </div>
 </section>
