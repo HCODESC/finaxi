@@ -8,7 +8,7 @@ import {
   AuthResponse,
 } from '@supabase/supabase-js';
 import { environment } from '../environments/environment';
-import { from, Observable } from 'rxjs';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -48,6 +48,7 @@ export class SupabaseService {
   }
 
   signOut() {
+    console.warn("You have been logged out")
     return this.supabase.auth.signOut();
   }
 }

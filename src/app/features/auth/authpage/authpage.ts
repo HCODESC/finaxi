@@ -7,9 +7,21 @@ import {
   FormGroup,
   ReactiveFormsModule,
   Validators,
+  ValidationErrors,
+  ValidatorFn,
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SupabaseService } from '../../../supabase-service';
+
+export const passwordMatchValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+  const parent = control.parent;
+  const password = parent?.get('password')?.value;
+  const confirmPassword = control.value;
+
+  if (!parent || !password || !confirmPassword) return null;
+
+  return password === confirmPassword ? null : { passwordMismatch: true };
+};
 
 type AuthMode = 'login' | 'register';
 
@@ -49,19 +61,19 @@ export class AuthPage {
   copy = computed<CopyText>(() => {
     return this.mode() === 'login'
       ? {
-          title: 'Welcome back',
-          subtitle: 'Sign in to your finaxi dashboard',
-          primary: 'Sign in',
-          switchPrefix: "Don't have an account?",
-          switchAction: 'Create one',
-        }
+        title: 'Welcome back',
+        subtitle: 'Sign in to your finaxi dashboard',
+        primary: 'Sign in',
+        switchPrefix: "Don't have an account?",
+        switchAction: 'Create one',
+      }
       : {
-          title: 'Create an account',
-          subtitle: 'Start tracking budgets and transactions',
-          primary: 'Create account',
-          switchPrefix: 'Already have an account?',
-          switchAction: 'Sign in',
-        };
+        title: 'Create an account',
+        subtitle: 'Start tracking budgets and transactions',
+        primary: 'Create account',
+        switchPrefix: 'Already have an account?',
+        switchAction: 'Sign in',
+      };
   });
 
   togglePasswordVisibility() {
@@ -104,7 +116,7 @@ export class AuthPage {
 
       if (newMode === 'register') {
         this.authForm.addControl('username', new FormControl('', Validators.required));
-        this.authForm.addControl('confirmPassword', new FormControl('', Validators.required));
+        this.authForm.addControl('confirmPassword', new FormControl('', [Validators.required, Validators.minLength(8), passwordMatchValidator]));
       } else {
         this.authForm.removeControl('username');
         this.authForm.removeControl('confirmPassword');
@@ -121,5 +133,6 @@ export class AuthPage {
 
   signout(): void {
     this.supabaseClient.signOut();
+    this.router.navigate([])
   }
 }
