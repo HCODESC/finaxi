@@ -1,7 +1,15 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
+import { SupabaseService } from '../../../supabase-service';
 
 type AuthMode = 'login' | 'register';
 
@@ -16,20 +24,22 @@ interface CopyText {
 @Component({
   selector: 'app-authpage',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './authpage.html',
   styleUrl: './authpage.css',
 })
 export class AuthPage {
+  supabaseClient = inject(SupabaseService);
   finaxilogo = 'finaxi-logo.png';
   private router = inject(Router);
   mode = signal<AuthMode>('login');
   showPassword = signal(false);
-  name = signal('');
-  email = signal('');
-  password = signal('');
-  confirmPassword = signal('');
-  error = signal('');
+  formBuilder = inject(FormBuilder);
+
+  authForm = new FormGroup<{ [key: string]: AbstractControl }>({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+  });
 
   currentYear = new Date().getFullYear();
 
@@ -58,48 +68,58 @@ export class AuthPage {
     this.showPassword.update((value) => !value);
   }
 
-  resetErrors() {
-    this.error.set('');
-  }
-
-  onSubmit(event: Event) {
-    event.preventDefault();
-    this.resetErrors();
-
-    //validation
-    const emailPattern = /.+@.+\..+/;
-    if (!emailPattern.test(this.email())) {
-      this.error.set('Enter a valid email');
+  async onSubmit() {
+    if (this.authForm.invalid) {
       return;
     }
 
-    if (this.password().length >= 8) {
-      this.error.set('Password must be at least 8 characters long.');
-      return;
+    const currentMode = this.mode();
+
+    if (currentMode === 'register') {
+      const { email, password, username } = this.authForm.value;
+      const { error } = await this.supabaseClient.register(email, username, password);
+      if (error) {
+        console.warn(error);
+      } else {
+        this.router.navigate(['/dashboard']);
+      }
+    } else {
+      const { email, password } = this.authForm.value;
+
+      const { error } = await this.supabaseClient.signInWithEmailAndPassword(email, password);
+
+      if (error) {
+        console.log(error);
+      } else {
+        this.router.navigate(['dashboard']);
+      }
     }
 
-    if (this.mode() === 'register') {
-      if (!this.name().trim()) {
-        this.error.set('Please enter your name.');
-        return;
-      }
-
-      if (this.password() !== this.confirmPassword()) {
-        this.error.set('Passwords do not match');
-        return;
-      }
-
-      this.router.navigate(['/dashboard']);
-    }
+    console.log(this.authForm.value);
   }
 
   toggleMode(): void {
-    this.resetErrors();
-    this.mode.update((m) => (m === 'login' ? 'register' : 'login'));
+    this.mode.update((m) => {
+      const newMode = m === 'login' ? 'register' : 'login';
+
+      if (newMode === 'register') {
+        this.authForm.addControl('username', new FormControl('', Validators.required));
+        this.authForm.addControl('confirmPassword', new FormControl('', Validators.required));
+      } else {
+        this.authForm.removeControl('username');
+        this.authForm.removeControl('confirmPassword');
+      }
+
+      return newMode;
+    });
   }
 
   onForgotPassword(event: Event): void {
     event.preventDefault();
     alert('Demo: send reset email flow');
+  }
+
+  signout(): void {
+    this.supabaseClient.signOut();
   }
 }

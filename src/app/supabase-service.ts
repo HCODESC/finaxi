@@ -5,17 +5,15 @@ import {
   SupabaseClient,
   User,
   Session,
+  AuthResponse,
 } from '@supabase/supabase-js';
 import { environment } from '../environments/environment';
+import { from, Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
 export class SupabaseService {
-  private supabase: SupabaseClient;
-
-  constructor() {
-    this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
-  }
+  private supabase: SupabaseClient = createClient(environment.supabaseUrl, environment.supabaseKey);
 
   async getUser(): Promise<User | null> {
     const { data, error } = await this.supabase.auth.getUser();
@@ -23,6 +21,18 @@ export class SupabaseService {
       return null;
     }
     return data.user;
+  }
+
+  async register(email: string, username: string, password: string) {
+    return await this.supabase.auth.signUp({
+      email: email,
+      password: password,
+      options: {
+        data: {
+          username: username,
+        },
+      },
+    });
   }
 
   authChanges(callback: (event: AuthChangeEvent, session: Session | null) => void) {
