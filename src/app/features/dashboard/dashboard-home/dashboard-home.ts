@@ -1,5 +1,7 @@
-import { Component, inject } from '@angular/core';
-import { SupabaseService } from '../../../supabase-service';
+import { Component, computed, inject } from '@angular/core';
+import { AuthService } from '../../../auth-service';
+import { supabase } from '../../../supabase.client';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard-home',
@@ -8,9 +10,15 @@ import { SupabaseService } from '../../../supabase-service';
   styleUrl: './dashboard-home.css',
 })
 export class DashboardHome {
-  private supabaseClient = inject(SupabaseService);
+  private auth = inject(AuthService);
+  router = inject(Router);
+  readonly profile = computed(() => this.auth.user());
+  readonly userId = computed(() => this.profile);
 
-  logout() {
-    this.supabaseClient.signOut();
+  signout(): void {
+    console.log(this.auth.currentUser?.email);
+    supabase.auth.signOut();
+    console.log(this.auth.currentUser);
+    this.router.navigate(['/']);
   }
 }
