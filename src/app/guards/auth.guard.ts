@@ -9,5 +9,5 @@ export const authGuard: CanActivateChildFn = () => {
   if (auth.isAuthenticated()) {
     return true;
   }
-  return router.createUrlTree(['/login']);
+  return router.createUrlTree(['/authpage']);
 };

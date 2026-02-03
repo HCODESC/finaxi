@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
 import { AuthPage } from './features/auth/authpage/authpage';
-import { App } from './app';
 import { Home } from './features/landing/home/home';
 import { DashboardHome } from './features/dashboard/dashboard-home/dashboard-home';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -16,5 +16,6 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardHome,
+    canMatch: [authGuard],
   },
 ];

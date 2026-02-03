@@ -122,8 +122,6 @@ export class AuthPage {
         this.router.navigate(['dashboard']);
       }
     }
-
-    console.log(this.authForm.value);
   }
 
   toggleMode(): void {
@@ -152,12 +150,5 @@ export class AuthPage {
   onForgotPassword(event: Event): void {
     event.preventDefault();
     alert('Demo: send reset email flow');
-  }
-
-  signout(): void {
-    console.log(this.authService.currentUser?.email);
-    supabase.auth.signOut();
-    console.log(this.authService.currentUser);
-    this.router.navigate(['/']);
   }
 }
