@@ -11,8 +11,8 @@ import {
   ValidatorFn,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../../../auth-service';
-import { supabase } from '../../../supabase.client';
+import { AuthService } from '../../../services/auth-service';
+import { supabase } from '../../../services/supabase.client';
 
 export const passwordMatchValidator: ValidatorFn = (
   control: AbstractControl,
@@ -92,7 +92,7 @@ export class AuthPage {
 
     if (currentMode === 'register') {
       const { email, password, username } = this.authForm.value;
-      const { error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
@@ -104,7 +104,10 @@ export class AuthPage {
 
       if (error) {
         console.warn(error);
-      } else {
+      }
+
+      if (data.user) {
+        await this.createUserProfile(email, username);
         this.router.navigate(['/dashboard']);
       }
     } else {
@@ -121,6 +124,52 @@ export class AuthPage {
       } else {
         this.router.navigate(['dashboard']);
       }
+    }
+  }
+
+  async createUserProfile(email: string, username: string) {
+    try {
+      // Grab access token from Supabase session
+      const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+
+      if (sessionError) {
+      console.error('Error getting Supabase session', sessionError);
+      this.requestErrorMessage.set('Failed to retrieve authentication token.');
+      return;
+      }
+
+      const accessToken = sessionData?.session?.access_token;
+      if (!accessToken) {
+      console.error('No access token available in session', sessionData);
+      this.requestErrorMessage.set('No auth token available to create remote profile.');
+      return;
+      }
+
+      // Call external .NET API to create user profile with Bearer token
+      const res = await fetch('https://localhost:7062/api/UserProfile/CreateUserProfile', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify({
+        username: username,
+        email: email,
+      }),
+      });
+
+      if (!res.ok) {
+      const text = await res.text();
+      console.error('Error creating user profile via API', res.status, text);
+      this.requestErrorMessage.set('Failed to create remote user profile.');
+      return;
+      }
+
+      const result = await res.json();
+      console.log('User profile created successfully!', result);
+    } catch (err) {
+      console.error('Unexpected error creating user profile', err);
+      this.requestErrorMessage.set('Unexpected error creating user profile.');
     }
   }
 
