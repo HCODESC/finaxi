@@ -16,6 +16,6 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardHome,
-    canMatch: [authGuard],
+    canActivate: [authGuard],
   },
 ];
